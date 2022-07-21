@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<head>
+  <title>SMARTSYS AUTOMATION</title>
+  <meta http-equiv="content-type"content="application/xhtml+xml; charset=utf-8">
+  	<meta name="viewport" content="width=device-width; initial-scale=1.0">	
+  <link href="styles.css" rel="stylesheet" type="text/css" >
+  <link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <script type="text/javascript" src="protectimg.js"></script>
+  
+  </head>
+  <style>
+form {
+ background-color:white;       
+ padding:10px;
+ width:450px;
+ }
+legend {
+ color:#DF3F3F;
+ font-weight:bold;
+ margin-left:10px;
+ }
+
+label {
+ margin-top:10px;
+ display:block;
+ font-size:15px;
+ font-family:cambria;
+ font-weight:bold;
+ }
+label.inline {
+ display:inline;
+ margin-right:50px;
+ }
+input, textarea, select, option {
+ background-color:#F9F9F9;
+ }
+input, textarea, select {
+ padding:3px;
+ border:1px solid #F5F5F5;
+ border-radius:5px;
+ width:400px;
+ box-shadow:1px 1px 2px #C0C0C0 inset;
+ }
+select {
+ 
+ }
+
+input[type=submit], input[type=reset] {
+ width:100px;
+ margin-left:5px;
+ box-shadow:1px 1px 1px #D83F3D;
+ cursor:pointer;
+ }
+ input:focus, textarea:focus {
+ background-color:white;
+ }
+input[type=submit]:focus, input[type=reset]:focus {
+ background-color:#FFF3F3;
+}
+input[type=submit]:hover, input[type=reset]:hover {
+ background-color:#FCDEDE;
+ }
+input[type=submit]:active, input[type=reset]:active {
+ background-color:#FCDEDE;
+ box-shadow:1px 1px 1px #D83F3D inset;
+}
+</style>
+<body>
+
+
+<div id="header">
+<div id="himg2">
+<a href="index.html"><img src="images/logo2.png"/></a>
+</div>
+<div id="himg1"></div>
+</div>
+
+<div id="contenu">
+<div id ="menu">
+<!-- menu -->
+<nav id="navigation">
+		<ul>
+			<li ><a href="index.html">Accueil</a></li>
+			<li><a href="activites.html">Nos activités</a></li>
+			<li><a href="projets.html">Nos références</a></li>
+			<li><a href="contact.html"class="current">Nous Contacter</a></li>
+		</ul>
+	</nav>
+<!-- menu -->
+</div>
+
+<div id="contacte">
+<div id="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.0068861066943!2d-6.89993700000006!3d33.94095099999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda712bf7a205ad9%3A0x4c79a2c9eab13278!2sSMARTSYS+AUTOMATION+SARLAU!5e0!3m2!1sfr!2s!4v1407507622724" width="800" height="400" frameborder="0" style="border:0"></iframe>
+</div>
+<div id="adresse">
+<p>
+<em>SMARTSYS AUTOMATION SARL AU</em></p>
+<p>Appt. 2, Imm. 21, Av. Mohammed V, Lot. Melk Allah, 12000 TEMARA, MAROC  </p>
+<p>Tél : 05.37.58.59.99 </p>
+
+<p>Email : <a href="mailto:smartsys.automation@gmail.com" style="color:gray">smartsys.automation@gmail.com</a></p>
+</div>
+
+<p>
+<?php
+/*
+	********************************************************************************************
+	CONFIGURATION
+	********************************************************************************************
+*/
+// destinataire est votre adresse mail. Pour envoyer à plusieurs à la fois, séparez-les par une virgule
+$destinataire = 'smartsys.automation@gmail.com';
+
+// copie ? (envoie une copie au visiteur)
+$copie = 'oui';
+
+// Action du formulaire (si votre page a des paramètres dans l'URL)
+// si cette page est index.php?page=contact alors mettez index.php?page=contact
+// sinon, laissez vide
+$form_action = '';
+
+// Messages de confirmation du mail
+$message_envoye = "Votre message nous est bien parvenu !";
+$message_non_envoye = "L'envoi du mail a échoué, veuillez réessayer SVP.";
+
+// Message d'erreur du formulaire
+$message_formulaire_invalide = "Vérifiez que tous les champs soient bien remplis et que l'email soit sans erreur.";
+
+/*
+	********************************************************************************************
+	FIN DE LA CONFIGURATION
+	********************************************************************************************
+*/
+
+/*
+ * cette fonction sert à nettoyer et enregistrer un texte
+ */
+function Rec($text)
+{
+	$text = htmlspecialchars(trim($text), ENT_QUOTES);
+	if (1 === get_magic_quotes_gpc())
+	{
+		$text = stripslashes($text);
+	}
+
+	$text = nl2br($text);
+	return $text;
+};
+
+/*
+ * Cette fonction sert à vérifier la syntaxe d'un email
+ */
+function IsEmail($email)
+{
+	$value = preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $email);
+	return (($value === 0) || ($value === false)) ? false : true;
+}
+
+// formulaire envoyé, on récupère tous les champs.
+$nom     = (isset($_POST['nom']))     ? Rec($_POST['nom'])     : '';
+$email   = (isset($_POST['email']))   ? Rec($_POST['email'])   : '';
+$objet   = (isset($_POST['objet']))   ? Rec($_POST['objet'])   : '';
+$message = (isset($_POST['message'])) ? Rec($_POST['message']) : '';
+
+// On va vérifier les variables et l'email ...
+$email = (IsEmail($email)) ? $email : ''; // soit l'email est vide si erroné, soit il vaut l'email entré
+$err_formulaire = false; // sert pour remplir le formulaire en cas d'erreur si besoin
+
+if (isset($_POST['envoi']))
+{
+	if (($nom != '') && ($email != '') && ($objet != '') && ($message != ''))
+	{
+		// les 4 variables sont remplies, on génère puis envoie le mail
+		$headers  = 'From:'.$nom.' <'.$email.'>' . "\r\n";
+		//$headers .= 'Reply-To: '.$email. "\r\n" ;
+		//$headers .= 'X-Mailer:PHP/'.phpversion();
+
+		// envoyer une copie au visiteur ?
+		if ($copie == 'oui')
+		{
+			$cible = $destinataire.','.$email;
+		}
+		else
+		{
+			$cible = $destinataire;
+		};
+
+		// Remplacement de certains caractères spéciaux
+		$message = str_replace("&#039;","'",$message);
+		$message = str_replace("&#8217;","'",$message);
+		$message = str_replace("&quot;",'"',$message);
+		$message = str_replace('<br>','',$message);
+		$message = str_replace('<br />','',$message);
+		$message = str_replace("&lt;","<",$message);
+		$message = str_replace("&gt;",">",$message);
+		$message = str_replace("&amp;","&",$message);
+
+		// Envoi du mail
+		if (mail($cible, $objet, $message, $headers))
+		{
+			echo '<p>'.$message_envoye.'</p>';
+		}
+		else
+		{
+			echo '<p>'.$message_non_envoye.'</p>';
+		};
+	}
+	else
+	{
+		// une des 3 variables (ou plus) est vide ...
+		echo '<p>'.$message_formulaire_invalide.'</p>';
+		$err_formulaire = true;
+	};
+}; // fin du if (!isset($_POST['envoi']))
+
+if (($err_formulaire) || (!isset($_POST['envoi'])))
+{
+	
+};
+?>
+
+</p>
+
+</div>
+
+<div id ="footer">
+          <p> SMARTSYS AUTOMATION SARL AU </p>
+           <p>Appt. 2, Imm. 21, Av. Mohammed V, Lot. Melk Allah, 12000 TEMARA, MAROC </p>
+          <p>Tél : 05.37.58.59.99 / Email : smartsys.automation@gmail.com </p>
+</div>
+</div>
+<script>
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-2196019-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+<script>
+trap()
+</script>
+</body>
+</html>
